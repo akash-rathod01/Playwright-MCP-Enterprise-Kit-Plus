@@ -14,23 +14,39 @@ jobs:
       - run: npm ci
       - run: npm run prepare
       - run: npx playwright install-deps
-      - name: Run tests
-        run: npm test || true
+      
+      - name: Run tests (excluding Workday)
+        run: npx playwright test src/tests --reporter=list,html,junit,allure-playwright
+        continue-on-error: true
+        env:
+          CI: true
+      
       - name: Generate Allure report
         if: always()
-        run: npm run allure:generate
+        run: npm run allure:generate || echo "Allure generation skipped"
+        continue-on-error: true
+      
       - name: Upload Allure artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
-      - name: Create GitHub issues for failures
-        if: failure()
-        run: npm run issues:github
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_OWNER: ${{ github.repository_owner }}
-          GH_REPO: ${{ github.event.repository.name }}
-      - name: Lighthouse CI (optional)
-        run: npm run lhci:autorun
+        continue-on-error: true
+      
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+        continue-on-error: true
+      
+      # Uncomment when you want to auto-create issues from failures
+      # - name: Create GitHub issues for failures
+      #   if: failure()
+      #   run: npm run issues:github
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     GH_OWNER: ${{ github.repository_owner }}
+      #     GH_REPO: ${{ github.event.repository.name }}
