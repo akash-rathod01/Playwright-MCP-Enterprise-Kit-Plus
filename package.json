@@ -1,9 +1,34 @@
 {
   "name": "playwright-mcp-enterprise-kit-plus",
   "version": "1.1.0",
-  "private": true,
+  "license": "MIT",
+  "author": "Akash Rathod",
   "type": "module",
   "description": "Enterprise Playwright + MCP starter with Allure reporting, GitHub/Jira issue integration, ZAP & Lighthouse CI, and repository templates.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akash-rathod01/Playwright-MCP-Enterprise-Kit-Plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akash-rathod01/Playwright-MCP-Enterprise-Kit-Plus/issues"
+  },
+  "homepage": "https://github.com/akash-rathod01/Playwright-MCP-Enterprise-Kit-Plus#readme",
+  "keywords": [
+    "playwright",
+    "testing",
+    "e2e",
+    "mcp",
+    "model-context-protocol",
+    "automation",
+    "typescript",
+    "allure",
+    "test-framework",
+    "enterprise",
+    "workday",
+    "accessibility",
+    "security-testing",
+    "ci-cd"
+  ],
   "scripts": {
     "prepare": "playwright install --with-deps",
     "test": "playwright test",
