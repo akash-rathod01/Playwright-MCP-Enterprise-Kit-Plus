@@ -120,49 +120,7 @@ async function main() {
     }
   );
 
-  // ========== TOOL 3: Run Workday Tests ==========
-  server.registerTool(
-    'run_workday_tests',
-    {
-      title: 'Run Workday Tests',
-      description: 'Execute Workday-specific test suite with proper configuration',
-      inputSchema: {
-        smoke: z.boolean().optional().describe('Run only smoke tests')
-      },
-      outputSchema: {
-        exitCode: z.number(),
-        output: z.string(),
-        success: z.boolean()
-      }
-    },
-    async (input) => {
-      console.log('[MCP Server] Running Workday tests');
-      
-      const pattern = input.smoke 
-        ? 'Workday/tests/smoke/**' 
-        : 'Workday/tests/**';
-      
-      const result = await runPlaywright({
-        pattern,
-        workers: 2,
-        reporter: 'list'
-      });
-      
-      return {
-        content: [{
-          type: 'text',
-          text: JSON.stringify({
-            exitCode: result.exitCode,
-            output: result.output,
-            success: result.success,
-            summary: result.summary
-          }, null, 2)
-        }]
-      };
-    }
-  );
-
-  // ========== TOOL 4: Get Test Configuration ==========
+  // ========== TOOL 3: Get Test Configuration ==========
   server.registerTool(
     'get_test_config',
     {
@@ -205,7 +163,6 @@ async function main() {
   console.log('[MCP Server] Available tools:');
   console.log('  - run_playwright_tests: Execute tests with comprehensive options');
   console.log('  - run_smoke_tests: Quick smoke test execution');
-  console.log('  - run_workday_tests: Workday-specific test execution');
   console.log('  - get_test_config: Retrieve configuration information');
 }
 

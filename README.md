@@ -40,7 +40,7 @@
 ### 🎭 Testing Capabilities
 - **🌐 Multi-Browser** - Chromium, Firefox, and WebKit support
 - **♿ Accessibility** - Built-in aXe-core accessibility testing
-- **🔐 Enterprise Apps** - Pre-configured Workday test suite included
+- **🔐 Enterprise Ready** - Extensible framework for testing enterprise applications
 - **🧪 Smoke & Regression** - Organized test suites for different testing levels
 
 ### 🚀 Developer Experience
@@ -96,9 +96,8 @@ nano .env     # macOS/Linux
 
 **Minimal configuration** (for basic testing):
 ```env
-WORKDAY_URL=https://impl.workday.com/your-tenant
-WORKDAY_USERNAME=your-username
-WORKDAY_PASSWORD=your-password
+BASE_URL=https://your-app.com
+# Add your application-specific configuration here
 ```
 
 ### 3️⃣ Run Your First Test
@@ -111,7 +110,7 @@ npm test
 npm run test:ui
 
 # Run specific test suite
-npx playwright test Workday/tests/smoke
+npx playwright test src/tests/web
 
 # Run in headed mode to watch tests execute
 npx playwright test --headed
@@ -161,9 +160,9 @@ The **Model Context Protocol (MCP)** enables AI assistants to execute your tests
 
 **Step 3:** Ask Claude to run your tests:
 ```
-"Run the Workday smoke tests"
+"Run the smoke tests"
 "Execute all accessibility tests and show me the results"
-"Run tests matching 'dashboard' and create a report"
+"Run tests matching 'homepage' and create a report"
 ```
 
 ### 🛠️ Available MCP Tools
@@ -172,7 +171,6 @@ The **Model Context Protocol (MCP)** enables AI assistants to execute your tests
 |------|-------------|-------------|
 | `run_playwright_tests` | Execute tests with full configuration options | Run specific browsers, projects, or grep patterns |
 | `run_smoke_tests` | Quick smoke test execution | Fast validation before deployments |
-| `run_workday_tests` | Workday-specific test suite | Enterprise app testing |
 | `get_test_config` | Retrieve current configuration | Debug setup issues |
 
 ### 💡 Usage Examples
@@ -302,7 +300,7 @@ npm run lhci:autorun
 
 ```bash
 # Run specific test file
-npx playwright test Workday/tests/smoke/homepage-smoke.spec.ts
+npx playwright test src/tests/web/example.spec.ts
 
 # Run tests matching pattern
 npx playwright test --grep "dashboard"
@@ -348,15 +346,6 @@ playwright-mcp-enterprise-kit-plus/
 │   └── 📂 framework/               # Test Framework
 │       ├── pages/                  # Page Object Models
 │       └── utils/                  # Utility functions
-│
-├── 📂 Workday/                     # Enterprise App Tests
-│   ├── tests/
-│   │   └── smoke/
-│   │       └── homepage-smoke.spec.ts
-│   └── utils/
-│       ├── auth.ts                 # Authentication helpers
-│       ├── proxy.ts                # Proxy utilities
-│       └── ui.ts                   # UI interactions
 │
 ├── 📂 integrations/                # External Integrations
 │   ├── common/                     # Shared utilities
@@ -412,11 +401,10 @@ cp .env.example .env
 
 ### 🔑 Required Variables
 
-#### Workday Testing
+#### Application Configuration
 ```env
-WORKDAY_URL=https://impl.workday.com/your-tenant/d/home.html
-WORKDAY_USERNAME=your-test-user@company.com
-WORKDAY_PASSWORD=SecureP@ssw0rd123
+BASE_URL=https://your-app.com
+# Add your application-specific variables here
 ```
 
 #### GitHub Integration (Optional)
@@ -472,7 +460,7 @@ This project includes a ready-to-use GitHub Actions workflow that:
    ```
    Settings → Secrets and variables → Actions → New repository secret
    ```
-   Add: `WORKDAY_URL`, `WORKDAY_USERNAME`, `WORKDAY_PASSWORD`, etc.
+   Add your application-specific secrets as needed.
 
 3. **Push to trigger** workflow:
    ```bash

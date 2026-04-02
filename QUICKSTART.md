@@ -8,10 +8,9 @@
 npm run mcp:server
 ```
 
-The MCP server will start and expose 4 main tools:
+The MCP server will start and expose 3 main tools:
 - `run_playwright_tests` - Full test execution with options
 - `run_smoke_tests` - Quick smoke tests
-- `run_workday_tests` - Workday-specific tests
 - `get_test_config` - View configuration
 
 ### Method 2: Standard Playwright Execution
@@ -19,29 +18,27 @@ The MCP server will start and expose 4 main tools:
 # Run all tests
 npm test
 
-# Run Workday smoke tests specifically
-npx playwright test Workday/tests/smoke/ --project=chromium
+# Run specific test suite
+npx playwright test src/tests/web --project=chromium
 
 # Run with UI mode for debugging
 npm run test:ui
 ```
 
-## Testing Your Current File
+## Testing Your Application
 
-Your current file is: `homepage-smoke.spec.ts`
-
-### Run it via standard Playwright:
+### Run tests via standard Playwright:
 ```bash
-npx playwright test Workday/tests/smoke/homepage-smoke.spec.ts
+npx playwright test src/tests/**/*.spec.ts
 ```
 
-### Run it via MCP Server:
+### Run tests via MCP Server:
 When the MCP server is running, send this tool request:
 ```json
 {
   "tool": "run_playwright_tests",
   "params": {
-    "pattern": "Workday/tests/smoke/homepage-smoke.spec.ts",
+    "pattern": "src/tests/**/*.spec.ts",
     "project": "chromium",
     "workers": 1,
     "headed": false
@@ -57,10 +54,8 @@ Before running tests, set up your environment:
 # Copy the example environment file
 cp .env.example .env
 
-# Edit .env and add your Workday credentials:
-# WORKDAY_URL=https://impl.workday.com/...
-# WORKDAY_USERNAME=your-username
-# WORKDAY_PASSWORD=your-password
+# Edit .env and add your application configuration:
+# BASE_URL=https://your-app.com
 ```
 
 ## Example: Full Test Flow
@@ -96,13 +91,10 @@ npm run allure:open              # Open Allure report
 }
 ```
 
-### Example 2: Run Workday smoke tests only
+### Example 2: Run smoke tests only
 ```json
 {
-  "tool": "run_workday_tests",
-  "params": {
-    "smoke": true
-  }
+  "tool": "run_smoke_tests"
 }
 ```
 
@@ -111,7 +103,7 @@ npm run allure:open              # Open Allure report
 {
   "tool": "run_playwright_tests",
   "params": {
-    "pattern": "Workday/tests/smoke/homepage-smoke.spec.ts",
+    "pattern": "src/tests/web/**/*.spec.ts",
     "project": "chromium",
     "workers": 1,
     "headed": true,
@@ -125,7 +117,7 @@ npm run allure:open              # Open Allure report
 {
   "tool": "run_playwright_tests",
   "params": {
-    "pattern": "Workday/tests/smoke/",
+    "pattern": "src/tests/",
     "debug": true,
     "headed": true,
     "workers": 1
@@ -145,8 +137,7 @@ npm run allure:open              # Open Allure report
       "args": ["run", "mcp:server"],
       "cwd": "d:\\Plywright_MCP Server_Project\\playwright-mcp-enterprise-kit-plus",
       "env": {
-        "WORKDAY_USERNAME": "your-username",
-        "WORKDAY_PASSWORD": "your-password"
+        "BASE_URL": "https://your-app.com"
       }
     }
   }
@@ -157,7 +148,7 @@ npm run allure:open              # Open Allure report
 
 3. You can now ask Claude to run your tests:
    - "Run the smoke tests"
-   - "Execute the Workday homepage test"
+   - "Execute the web tests"
    - "Run all tests in chromium browser"
    - "Get the test configuration"
 
@@ -181,10 +172,10 @@ npx tsc --noEmit
 npm install
 ```
 
-### Authentication failures
-- Verify WORKDAY_USERNAME and WORKDAY_PASSWORD in .env
-- Check if credentials are correct
-- Ensure the WORKDAY_URL is accessible
+### Configuration issues
+- Verify BASE_URL and other environment variables in .env
+- Check if application URL is accessible
+- Ensure all required environment variables are set
 
 ## Next Steps
 

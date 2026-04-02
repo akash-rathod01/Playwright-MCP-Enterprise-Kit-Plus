@@ -45,13 +45,7 @@ Execute quick smoke tests for rapid validation.
 
 **Parameters:** None
 
-### 3. run_workday_tests
-Execute Workday-specific test suite.
-
-**Parameters:**
-- `smoke` (optional): Run only smoke tests (boolean)
-
-### 4. get_test_config
+### 3. get_test_config
 Retrieve current Playwright configuration and environment settings.
 
 **Parameters:** None
@@ -70,10 +64,7 @@ Add to your Claude Desktop configuration (`claude_desktop_config.json`):
       "args": ["run", "mcp:server"],
       "cwd": "d:\\Plywright_MCP Server_Project\\playwright-mcp-enterprise-kit-plus",
       "env": {
-        "BASE_URL": "https://example.com",
-        "WORKDAY_URL": "https://impl.workday.com/wday/authgwy/onetp4/login.htmld?redirect=n",
-        "WORKDAY_USERNAME": "your-username",
-        "WORKDAY_PASSWORD": "your-password"
+        "BASE_URL": "https://your-app.com"
       }
     }
   }
@@ -109,14 +100,11 @@ When the MCP server is running, you can send tool requests like:
 }
 ```
 
-**Run Workday smoke tests:**
+**Run smoke tests:**
 ```bash
 # The MCP client would send:
 {
-  "tool": "run_workday_tests",
-  "params": {
-    "smoke": true
-  }
+  "tool": "run_smoke_tests"
 }
 ```
 
@@ -126,7 +114,7 @@ When the MCP server is running, you can send tool requests like:
 {
   "tool": "run_playwright_tests",
   "params": {
-    "pattern": "Workday/tests/smoke/homepage-smoke.spec.ts",
+    "pattern": "src/tests/**/*.spec.ts",
     "project": "chromium",
     "workers": 2,
     "headed": false
@@ -136,10 +124,8 @@ When the MCP server is running, you can send tool requests like:
 
 ## Environment Variables
 
-Required for Workday tests:
-- `WORKDAY_URL`: Workday login URL
-- `WORKDAY_USERNAME`: Workday username
-- `WORKDAY_PASSWORD`: Workday password
+Required for test execution:
+- `BASE_URL`: Application base URL for testing
 
 Required for GitHub integration:
 - `GH_TOKEN`: GitHub personal access token
