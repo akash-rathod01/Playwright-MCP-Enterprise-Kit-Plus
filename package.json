@@ -1,0 +1,39 @@
+{
+  "name": "playwright-mcp-enterprise-kit-plus",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Enterprise Playwright + MCP starter with Allure reporting, GitHub/Jira issue integration, ZAP & Lighthouse CI, and repository templates.",
+  "scripts": {
+    "prepare": "playwright install --with-deps",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:a11y": "playwright test src/tests/web/accessibility.spec.ts",
+    "allure:generate": "allure generate ./allure-results --clean -o ./allure-report",
+    "allure:open": "allure open ./allure-report",
+    "zap:baseline": "node security/zap/scripts/runZapBaseline.js",
+    "zap:full": "node security/zap/scripts/runZapFullScan.js",
+    "lhci:autorun": "lhci autorun",
+    "mcp:server": "tsx src/mcp/server.ts",
+    "issues:github": "tsx integrations/github/reportFailuresToIssues.ts",
+    "issues:jira": "tsx integrations/jira/reportFailuresToIssues.ts"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "zod": "^3.25.8",
+    "@octokit/rest": "^20.0.0",
+    "jira-client": "^8.2.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.8.0",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2",
+    "@lhci/cli": "^0.15.0",
+    "allure-playwright": "^3.4.1",
+    "allure-commandline": "^2.34.1",
+    "xml2js": "^0.6.2"
+  }
+}

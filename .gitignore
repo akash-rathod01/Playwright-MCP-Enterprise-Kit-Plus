@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Test results and reports
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+reports/
+*.xml
+
+# Playwright
+playwright/.cache/
+.playwright/
+
+# Build outputs
+dist/
+build/
+out/
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+*.js.map
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Security scanning results
+security/zap/reports/
+
+# Lighthouse CI
+.lighthouseci/
+
+# MCP Server logs
+mcp-server.log
