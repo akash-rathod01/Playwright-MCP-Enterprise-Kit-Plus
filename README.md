@@ -27,11 +27,60 @@
 - **⚡ Smart Test Execution** - Intelligent test selection and execution via MCP tools
 
 ### 📊 Enterprise Reporting
-- **📈 Allure Reports** - Beautiful, comprehensive test analytics and history
-- **📸 Visual Evidence** - Automatic screenshots, videos, and traces on failures
-- **🎯 JUnit/HTML Reports** - Multi-format reporting for CI/CD pipelines
+ - **📊 ReportPortal Integration** - Centralized, real-time dashboards and analytics (optional, recommended for enterprise)
 
 ### 🔗 Integration Ecosystem
+#
+# ---
+#
+# ## 🚀 ReportPortal Integration (Advanced)
+#
+# **ReportPortal** is an open-source test analytics platform for aggregating results, dashboards, and real-time analytics. It is recommended for enterprise teams needing centralized reporting across projects and CI/CD.
+#
+# #### 1. Install ReportPortal Agent
+#
+# ```bash
+# npm install --save-dev @reportportal/agent-js-playwright
+# ```
+#
+# #### 2. Configure Playwright to Use ReportPortal
+#
+# Add a `reporter` entry in your `playwright.config.ts`:
+#
+# ```js
+# // playwright.config.ts
+# import { defineConfig } from '@playwright/test';
+# import { PlaywrightReportPortal } from '@reportportal/agent-js-playwright';
+#
+# export default defineConfig({
+#   // ...existing config
+#   reporter: [
+#     ['@reportportal/agent-js-playwright', {
+#       // See ReportPortal docs for full config
+#       endpoint: 'https://your-reportportal-server/api/v1',
+#       token: 'YOUR_REPORTPORTAL_TOKEN',
+#       project: 'your_project',
+#       launch: 'playwright_launch',
+#       description: 'Playwright E2E Tests',
+#       attributes: [{ key: 'env', value: 'dev' }],
+#     }],
+#     // ...other reporters
+#   ],
+# });
+# ```
+#
+# #### 3. Run Tests and View in ReportPortal
+#
+# ```bash
+# npm test
+# # Results will be sent to your ReportPortal instance
+# ```
+#
+# **Resources:**
+# - [ReportPortal Docs](https://reportportal.io/docs/)
+# - [Playwright Agent for ReportPortal](https://github.com/reportportal/agent-js-playwright)
+#
+# > For best results, use Allure for local HTML reports and ReportPortal for centralized dashboards and analytics.
 - **🐙 GitHub Issues** - Auto-create issues from test failures with full context
 - **📋 Jira Integration** - Automatic ticket creation in Jira for failed tests
 - **🛡️ OWASP ZAP** - Security vulnerability scanning integration
